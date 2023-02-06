@@ -24,4 +24,4 @@ details of the class names are as below
 <br>bullock-cart
 <br>school-bus
 
-trained model 
+you can download the trained model <a href= https://sharedby.blomp.com/1NTsih>here</a>
