@@ -2,6 +2,8 @@
 This is a AI traffic classification and counting application based on ComputerVision and Darknet Image recognition
 
 <img src='prabhanvi\sample_final_output.jpg'></img>
+<br>
+<img src='example/20221217191953a_output.gif'></img>
 
 The AI model is built on yolov3
 
