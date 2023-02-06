@@ -112,13 +112,8 @@ detected_classNames = []
 
 ## Model Files
 
-modelConfiguration = 'yolov3_highway_daynight.cfg'
-modelWeigheights = 'yolov3_highway_daynight_final.weights'
-modelConfiguration = 'yolov3_highway_daynight_last.cfg'
-modelWeigheights = 'yolov3_highway_daynight_last.weights'
-modelConfiguration = 'yolov3_highway_ramnagar.cfg'
-modelWeigheights = 'yolov3_highway_ramnagar_last.weights'
-#modelWeigheights = 'yolov3_highway_ramnagar_final.weights'
+modelConfiguration = 'yolov3_highway_trafficount.cfg'
+modelWeigheights = 'yolov3_highway_trafficount.weights'
 
 # configure the network model
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeigheights)
