@@ -1,0 +1,7 @@
+Analysis progress: 1.94,Frames completed: 1212
+Direction,Car/Van/Jeep/LCV,Mini Bus,Bus/Truck (2 Axle),3 Axle/EME/JCB,Multi Axle
+UP,6,0,2,0,0
+DOWN,2,0,0,0,0
+car,motorbike,bus,truck,autorickshaw,multiaxle,tanker,earth-mover,mini-bus,truck-3-axle,oversized-vehicle,lcv,scooter,bicycle,luggage-auto,tractor,bullock-cart,school-bus
+5,3,2,0,2,0,0,0,0,0,0,1,0,0,0,0,0
+2,4,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0
