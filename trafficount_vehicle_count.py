@@ -26,10 +26,6 @@ if len(args) > 3:
     startframetime = args[3]
 if len(args) > 4:
     endframetime = args[4]
-#print (inputfile.split('.')[0])
-#print (outputfile)
-
-#inputfile = 'Ch1Toll1.mp4'
 
 # Traffic direction
 horizontal_traffic = 'YES'
@@ -55,10 +51,9 @@ if endframetime == '':
 
 speedscale = 1
 framesGap = 5 #for detection skip frames
-#framesGap=5600
 frame_number =0
 
-#add logo to the final image
+#add branding to the final image
 logo = cv2.imread('prabhanvi/PrabhanviLogo.jpg')
 logoScale = 0.5
 logo_width = int(logo.shape[1]*logoScale)
@@ -102,8 +97,6 @@ hor_down_line_position = hor_middle_line_position + int(iw*0.0)
 # Store Coco Names in a list
 classesFile = "trafficount_vehicle_class.names"
 classNames = open(classesFile).read().strip().split('\n')
-#print(classNames)
-#print(len(classNames))
 
 # class index for our required detection classes
 required_class_index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
@@ -111,21 +104,19 @@ required_class_index = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 detected_classNames = []
 
 ## Model Files
-
 modelConfiguration = 'yolov3_highway_trafficount.cfg'
 modelWeigheights = 'yolov3_highway_trafficount.weights'
 
 # configure the network model
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeigheights)
 
-# Configure the network backend
+# Configure the network backend to use GPU
 #net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 #net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 # Define random colour for each class
 np.random.seed(42)
 colors = np.random.randint(0, 255, size=(len(classNames), 3), dtype='uint8')
-
 
 # Function for finding the center of a rectangle
 def find_center(x, y, w, h):
@@ -142,8 +133,7 @@ up_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 down_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 temp_box_list = []
 
-##############################################
-# Function for count vehicle
+#################################  ######### #### # Function for count vehicle
 def count_vehicle(box_id, img):
 
     x, y, w, h, id, index = box_id
@@ -176,20 +166,13 @@ def count_vehicle(box_id, img):
             
             down_list[index] = down_list[index] + 1
             
-    ##### ---------- 
-    
-
-    #####  ---------
 
     # Draw circle in the middle of the rectangle
     #cv2.circle(img, center, 2, (0, 0, 255), -1)  # end here
-    # print(up_list, down_list)
 
     # Draw ID in the middle of the rectangle
     cv2.circle(img, center, 2, (0, 0, 255), -1)  # end here
     cv2.putText(img, str(id), center, cv2.FONT_HERSHEY_SIMPLEX, font_size*0.75, (0, 150, 255), font_thickness*1)
-#    cv2.putText(img, str(id), center, cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness*1)
-#    print(str(id), up_list, down_list)
 
 # Function for finding the detected objects from the network output
 def postProcess(outputs,img):
@@ -215,9 +198,8 @@ def postProcess(outputs,img):
 
     # Apply Non-Max Suppression
     indices = cv2.dnn.NMSBoxes(boxes, confidence_scores, confThreshold, nmsThreshold)
+    
     # print(classIds)
-    #print (boxes)
-    #for i in indices.flatten():
     for i in indices:
         x, y, w, h = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
         # print(x,y,w,h)
@@ -231,15 +213,11 @@ def postProcess(outputs,img):
         # Draw bounding rectangle
         # cv2.rectangle(img, (x, y), (x + w, y + h), color, 1)
         detection.append([x, y, w, h, required_class_index.index(classIds[i])])
-#        print (detection)
-#        print (len(detection))
 
     # Update the tracker for each object
     boxes_ids = tracker.update(detection)
     for box_id in boxes_ids:
         count_vehicle(box_id, img)
-
-
 
 ##############################################
 
@@ -346,7 +324,7 @@ def realTime():
         cv2.putText(img, str(up_list[9]), (reportLocation_left+reportLocation_columnTab1, reportLocation_top+reportLineGap*linenumber), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
         cv2.putText(img, str(down_list[9]), (reportLocation_left+reportLocation_columnTab2, reportLocation_top+reportLineGap*linenumber), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
 
-#standatd text imprint
+        #standatd text imprint
         cv2.putText(img, 'Prabhanvi Technologies - TraffiCount', (int(iw/2), ih-10), cv2.FONT_HERSHEY_SIMPLEX, font_size*0.75, (200,245,18), font_thickness*1)
         cv2.putText(img, '[9986379673]', (int(iw*0.8), ih-10), cv2.FONT_HERSHEY_SIMPLEX, font_size*0.75, (200,245,18), font_thickness*1)
         
@@ -369,7 +347,7 @@ def realTime():
         cv2.putText(img, 'Analysis progress: ' + completed_time, (int(iw*0.6), ih-40), cv2.FONT_HERSHEY_SIMPLEX, font_size*0.75, (200,245,18), font_thickness*1)
         cv2.putText(img, 'Time to Complete: ' + str(tr2complete), (int(iw*0.6), ih-25), cv2.FONT_HERSHEY_SIMPLEX, font_size*0.75, (200,245,118), font_thickness*1)
         
-#include logo        
+        #include brand        
         logo_dim = (iw, ih)
         logo_wm = cv2.resize(logo, logo_dim, interpolation=cv2.INTER_AREA)
 
@@ -379,8 +357,6 @@ def realTime():
         outVideo.write(img)
         
         # Draw the crossing lines
-        # if horizontal_traffic == 'YES':
-            # horizontal for up-down
         cv2.line(img, (0, middle_line_position), (iw, middle_line_position), (255, 0, 255), 2)
         cv2.line(img, (0, up_line_position), (iw, up_line_position), (0, 0, 255), 1)
         cv2.line(img, (0, down_line_position), (iw, down_line_position), (0, 0, 255), 1)
@@ -398,8 +374,7 @@ def realTime():
         if outputfile.upper() == "SHOW":    
             cv2.imshow('Output', img)
 
-### write interim counter csv file
-
+        ### write interim counter csv file
         with open(inputfile.split('.')[0] + "_status.csv", 'w') as f_status:
             cwriter = csv.writer(f_status)
             cwriter.writerow(['Analysis progress: ' + str(round(((frame_number/total_frame_count)*time_length)/fps,2)),'Frames completed: ' + str(frame_number)])
