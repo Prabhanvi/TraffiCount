@@ -1,7 +1,7 @@
 # TraffiCount
 This is a AI traffic classification and counting application based on ComputerVision and Darknet Image recognition
 
-<img href='prabhanvi\sample_final_output.jpg'></img>
+<img src='prabhanvi\sample_final_output.jpg'></img>
 
 The AI model is built on yolov3
 
