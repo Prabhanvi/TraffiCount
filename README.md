@@ -1,6 +1,8 @@
 # TraffiCount
 This is a AI traffic classification and counting application based on ComputerVision and Darknet Image recognition
 
+<img href='prabhanvi\sample_final_output.jpg'></img>
+
 The AI model is built on yolov3
 
 This program is capable of classifying most of the highway traffic in India including the bullock-cart & bycycle
